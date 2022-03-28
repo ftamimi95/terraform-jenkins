@@ -1,2 +1,2 @@
-# terraform-jenkins
-Testing grounds for Terraform and Jenkins
+# terraform-gcp-tutorial
+terraform-gcp-tutorial

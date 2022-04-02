@@ -1,4 +1,4 @@
-    parameters {
+parameters {
         string(name: 'GCP_PROJECT_ID', defaultValue: 'xxx', description: 'GCP Project ID',)
         string(name: 'CLOUD_SQL_NAME', defaultValue: 'xxx', description: 'Cloud SQL Instance name',)
         string(name: 'GCP_REGION', defaultValue: 'xxx', description: 'GCP Region',)

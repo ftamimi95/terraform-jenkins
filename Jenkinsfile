@@ -17,8 +17,6 @@ pipeline {
         }
     stages {
         stage('prepare') {
-            steps{
-                 echo 'test'
             script {
                 terraform apply \
                 -var 'project_id=$(GCP_PROJECT_ID)' \
@@ -37,4 +35,3 @@ pipeline {
             }
         }
     }
-}

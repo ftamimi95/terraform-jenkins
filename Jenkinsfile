@@ -29,11 +29,11 @@ pipeline {
                     -var 'database_version=$(DATABASE_VERSION)' \
                     -var 'region=$(GCP_REGION)'\
                     -var 'tier=$(INSTANCE_TYPE)' \
+                    -var 'disk_size=$(INSTANCE_DISK_SIZE)'
                     // -var 'zone=$(GCP_ZONE)' \
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \
-                    -var 'disk_size=$(INSTANCE_DISK_SIZE)'
                     // -var 'disk_size=$(INSTANCE_DISK_TYPE)'
                     //-var 'tags={ "Owner":"$(OWNER)", "Service":"$(SERVICE)", "Terraform":"true", "Env":"$(ENV)" }'
                 } 

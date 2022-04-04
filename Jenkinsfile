@@ -1,8 +1,11 @@
 pipeline {
-    tool name: 'terraform-1-1-7', type: 'terraform'
+    
     agent {
             label 'master'
         }
+    tools {
+        terraform 'terraform-1-1-7'
+    }
     parameters {
         string(name: 'GCP_PROJECT_ID', defaultValue: 'xxx', description: 'GCP Project ID',)
         string(name: 'CLOUD_SQL_NAME', defaultValue: 'xxx', description: 'Cloud SQL Instance name',)

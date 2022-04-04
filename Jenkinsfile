@@ -29,7 +29,7 @@ pipeline {
         
         stage('plan-test'){
             steps{
-                sh 'cd /example/'
+                sh 'cd {workspace}/example/'
                 sh 'terraform plan -f example.tf'
             }
         }

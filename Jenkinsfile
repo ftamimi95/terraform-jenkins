@@ -7,18 +7,27 @@ pipeline {
         terraform 'terraform-1-1-7'
     }
     parameters {
-        string(name: 'GCP_PROJECT_ID', defaultValue: 'xxx', description: 'GCP Project ID',)
-        string(name: 'CLOUD_SQL_NAME', defaultValue: 'xxx', description: 'Cloud SQL Instance name',)
-        string(name: 'GCP_REGION', defaultValue: 'xxx', description: 'GCP Region',)
-        string(name: 'INSTANCE_TYPE', defaultValue: 'xxx', description: 'Instance type or tier',)
+        string(name: 'GCP_PROJECT_ID', defaultValue: 'astute-veld-344810', description: 'GCP Project ID',)
+        string(name: 'CLOUD_SQL_NAME', defaultValue: 'test-sql', description: 'Cloud SQL Instance name',)
+        string(name: 'GCP_REGION', defaultValue: 'us-central1', description: 'GCP Region',)
+        string(name: 'INSTANCE_TYPE', defaultValue: 'REGIONAL', description: 'Instance type or tier',)
         // string(name: 'GCP_ZONE', defaultValue: 'xxx', description: 'Zone selection if needed',)
         // string(name: 'GCP_ACTIVATION_POLICY', defaultValue: 'xxx', description: 'server hostname',)
         // string(name: 'GCP_AVAILABILITY_TYPE', defaultValue: 'xxx', description: 'The availability type for the master instance. Can be either `REGIONAL` or `null`',)
         // string(name: 'DISK_AUTO_RESIZE', defaultValue: 'xxx', description: 'Enable Auto Resize for the disk',)
-        string(name: 'INSTANCE_DISK_SIZE', defaultValue: 'xxx', description: 'Initial disk size',)
+        string(name: 'INSTANCE_DISK_SIZE', defaultValue: '10', description: 'Initial disk size',)
         // string(name: 'INSTANCE_DISK_TYPE', defaultValue: 'xxx', description: 'Instance disk type',)
     }
     stages {
+        stage('GCloud Login'){
+            withCredentials([file(credentialsId: 'terraform-svc', variable: 'GC_KEY')]) {
+            sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+            }
+        }
+        stage('plan-test'){
+            sh 'cd /example/'
+            sh 'terraform plan -f example.tf'
+        }
         stage('prepare') {
             steps   {
                 script {

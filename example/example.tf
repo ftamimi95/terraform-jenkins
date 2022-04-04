@@ -5,13 +5,13 @@ resource "random_id" "suffix" {
 
 module "mysql-db" {
   source               = "../"
-  name                 = "example-mysql-private"
+  name                 = "example-mysql-db"
   random_instance_name = true
-  project_id           = "wide-memento-326912"
+  project_id           = "astute-veld-344810"
 
   deletion_protection = false
 
-  database_version = "MYSQL_5_6"
+  database_version = "MYSQL_8_0"
   region           = "us-central1"
   zone             = "us-central1-c"
   tier             = "db-n1-standard-1"

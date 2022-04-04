@@ -20,14 +20,20 @@ pipeline {
     }
     stages {
         stage('GCloud Login'){
-            withCredentials([file(credentialsId: 'terraform-svc', variable: 'GC_KEY')]) {
-            sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+            steps{
+                withCredentials([file(credentialsId: 'terraform-svc', variable: 'GC_KEY')]) {
+                sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                }   
             }
         }
+        
         stage('plan-test'){
-            sh 'cd /example/'
-            sh 'terraform plan -f example.tf'
+            steps{
+                sh 'cd /example/'
+                sh 'terraform plan -f example.tf'
+            }
         }
+        
         stage('prepare') {
             steps   {
                 script {

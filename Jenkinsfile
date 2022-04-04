@@ -1,6 +1,8 @@
-
-
-parameters {
+pipeline {
+    agent {
+            label 'master'
+        }
+    parameters {
         string(name: 'GCP_PROJECT_ID', defaultValue: 'xxx', description: 'GCP Project ID',)
         string(name: 'CLOUD_SQL_NAME', defaultValue: 'xxx', description: 'Cloud SQL Instance name',)
         string(name: 'GCP_REGION', defaultValue: 'xxx', description: 'GCP Region',)
@@ -12,10 +14,8 @@ parameters {
         string(name: 'INSTANCE_DISK_SIZE', defaultValue: 'xxx', description: 'Initial disk size',)
         string(name: 'INSTANCE_DISK_TYPE', defaultValue: 'xxx', description: 'Instance disk type',)
     }
-
-pipeline {
-    agent {
-            label 'master'
+        tools {
+            Terraform 'terraform'
         }
     stages {
         stage('prepare') {

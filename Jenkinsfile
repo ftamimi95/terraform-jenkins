@@ -15,7 +15,7 @@ pipeline {
         // string(name: 'GCP_ACTIVATION_POLICY', defaultValue: 'xxx', description: 'server hostname',)
         // string(name: 'GCP_AVAILABILITY_TYPE', defaultValue: 'xxx', description: 'The availability type for the master instance. Can be either `REGIONAL` or `null`',)
         // string(name: 'DISK_AUTO_RESIZE', defaultValue: 'xxx', description: 'Enable Auto Resize for the disk',)
-        string(name: 'INSTANCE_DISK_SIZE', defaultValue: "10", description: 'Initial disk size',)
+        // string(name: 'INSTANCE_DISK_SIZE', defaultValue: "10", description: 'Initial disk size',)
         // string(name: 'INSTANCE_DISK_TYPE', defaultValue: 'xxx', description: 'Instance disk type',)
     }
     stages {
@@ -55,7 +55,7 @@ pipeline {
                     -var 'database_version=$(DATABASE_VERSION)' \
                     -var 'region=${GCP_REGION}'\
                     -var 'tier=${INSTANCE_TYPE}' \
-                    -var 'disk_size=${INSTANCE_DISK_SIZE}' \
+                    -var 'disk_size=10' \
                     -var 'zone=${GCP_ZONE}' '''
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \

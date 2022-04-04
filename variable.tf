@@ -59,7 +59,7 @@ variable "disk_autoresize" {
 
 variable "disk_size" {
   description = "The disk size for the master instance"
-  type        = string
+  type        = number
   default     = 10
 }
 

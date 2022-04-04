@@ -11,7 +11,7 @@ pipeline {
         string(name: 'CLOUD_SQL_NAME', defaultValue: 'test-sql', description: 'Cloud SQL Instance name',)
         string(name: 'GCP_REGION', defaultValue: 'us-central1', description: 'GCP Region',)
         string(name: 'INSTANCE_TYPE', defaultValue: 'REGIONAL', description: 'Instance type or tier',)
-        // string(name: 'GCP_ZONE', defaultValue: 'xxx', description: 'Zone selection if needed',)
+        string(name: 'GCP_ZONE', defaultValue: 'us-central1-a', description: 'Zone selection if needed',)
         // string(name: 'GCP_ACTIVATION_POLICY', defaultValue: 'xxx', description: 'server hostname',)
         // string(name: 'GCP_AVAILABILITY_TYPE', defaultValue: 'xxx', description: 'The availability type for the master instance. Can be either `REGIONAL` or `null`',)
         // string(name: 'DISK_AUTO_RESIZE', defaultValue: 'xxx', description: 'Enable Auto Resize for the disk',)
@@ -19,6 +19,15 @@ pipeline {
         // string(name: 'INSTANCE_DISK_TYPE', defaultValue: 'xxx', description: 'Instance disk type',)
     }
     stages {
+        
+        stage('Clone Repo'){
+            steps{
+                // git branch: 'terraform-test-branch', url: 'https://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@github.com/ftamimi95/terraform-gcp-cloud-sql-jenkins.git'
+            
+                sh 'ls -ltr'
+            }
+        }
+        
         stage('GCloud Login'){
             steps{
                 withCredentials([file(credentialsId: 'terraform-svc', variable: 'GC_KEY')]) {
@@ -27,12 +36,13 @@ pipeline {
             }
         }
         
-        stage('plan-test'){
-            steps{
-                sh 'cd ${workspace}/example/'
-                sh 'terraform plan -f example.tf'
-            }
-        }
+        // stage('plan-test'){
+        //     steps{
+        //         // sh 'cd ${workspace}/example/'
+        //         sh 'pwd'
+        //         sh 'terraform plan -f example.tf'
+        //     }
+        // }
         
         stage('prepare') {
             steps   {
@@ -45,8 +55,8 @@ pipeline {
                     -var 'database_version=$(DATABASE_VERSION)' \
                     -var 'region=$(GCP_REGION)'\
                     -var 'tier=$(INSTANCE_TYPE)' \
-                    -var 'disk_size=$(INSTANCE_DISK_SIZE)' ''' 
-                    // -var 'zone=$(GCP_ZONE)' \
+                    -var 'disk_size=$(INSTANCE_DISK_SIZE)' \
+                    -var 'zone=$(GCP_ZONE)' '''
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \

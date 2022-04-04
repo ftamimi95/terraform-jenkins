@@ -1,4 +1,5 @@
 pipeline {
+    tool name: 'terraform-1-1-7', type: 'terraform'
     agent {
             label 'master'
         }
@@ -14,9 +15,6 @@ pipeline {
         string(name: 'INSTANCE_DISK_SIZE', defaultValue: 'xxx', description: 'Initial disk size',)
         string(name: 'INSTANCE_DISK_TYPE', defaultValue: 'xxx', description: 'Instance disk type',)
     }
-        tools {
-            Terraform 'terraform'
-        }
     stages {
         stage('prepare') {
             steps   {

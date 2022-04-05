@@ -50,7 +50,7 @@ pipeline {
                 script {
                     sh 'terraform --version'
                     sh 'terraform init'
-                    sh '''terraform plan \
+                    sh '''terraform validate && terraform plan -out tfplan \
                     -var 'project_id=${GCP_PROJECT_ID}' \
                     -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \
@@ -72,7 +72,7 @@ pipeline {
             steps   {
                 script {
                     sh 'terraform --version'
-                    sh '''terraform apply -input=false -auto-approve \
+                    sh '''terraform apply tfplan -input=false -auto-approve \
                     -var 'project_id=${GCP_PROJECT_ID}' \
                     -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \

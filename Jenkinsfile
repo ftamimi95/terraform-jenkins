@@ -44,12 +44,32 @@ pipeline {
         //     }
         // }
         
-        stage('prepare') {
+        stage('Terraform Plan') {
             steps   {
                 script {
                     sh 'terraform --version'
                     sh 'terraform init'
                     sh '''terraform plan \
+                    -var 'project_id=${GCP_PROJECT_ID}' \
+                    -var 'name=${CLOUD_SQL_NAME}' \
+                    -var 'database_version=$(DATABASE_VERSION)' \
+                    -var 'region=${GCP_REGION}'\
+                    -var 'tier=${INSTANCE_TYPE}' \
+                    -var 'disk_size=10' \
+                    -var 'zone=${GCP_ZONE}' '''
+                    // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
+                    // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
+                    // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \
+                    // -var 'disk_size=$(INSTANCE_DISK_TYPE)'
+                    //-var 'tags={ "Owner":"$(OWNER)", "Service":"$(SERVICE)", "Terraform":"true", "Env":"$(ENV)" }'
+                } 
+            }
+        }
+        stage('Terraform Apply') {
+            steps   {
+                script {
+                    sh 'terraform --version'
+                    sh '''terraform apply \
                     -var 'project_id=${GCP_PROJECT_ID}' \
                     -var 'name=${CLOUD_SQL_NAME}' \
                     -var 'database_version=$(DATABASE_VERSION)' \

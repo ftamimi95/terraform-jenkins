@@ -31,7 +31,7 @@ pipeline {
         
         stage('GCloud Login'){
             steps{
-                withCredentials([file(credentialsId: 'terraform-svc', variable: 'GC_KEY')]) {
+                withCredentials([file(credentialsId: 'terraform-svc-test', variable: 'GC_KEY')]) {
                 sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
                 }   
             }

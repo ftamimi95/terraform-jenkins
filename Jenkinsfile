@@ -54,13 +54,12 @@ pipeline {
                     -var 'project_id=${GCP_PROJECT_ID}' \
                     -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \
-                    -var 'region=${GCP_REGION}'\
                     -var 'tier=${INSTANCE_TYPE}' \
                     -var 'disk_size=10' \
                     -var 'zone=${GCP_ZONE}' \
                     -var 'database_version=${CLOUD_SQL_VERSION}' '''
-                    // 
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
+                    // -var 'region=${GCP_REGION}'\
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \
                     // -var 'disk_size=$(INSTANCE_DISK_TYPE)'
@@ -76,11 +75,11 @@ pipeline {
                     -var 'project_id=${GCP_PROJECT_ID}' \
                     -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \
-                    -var 'region=${GCP_REGION}'\
                     -var 'tier=${INSTANCE_TYPE}' \
                     -var 'disk_size=10' \
                     -var 'zone=${GCP_ZONE}' \
                     -var 'database_version=${CLOUD_SQL_VERSION}' '''
+                    // -var 'region=${GCP_REGION}'\
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \

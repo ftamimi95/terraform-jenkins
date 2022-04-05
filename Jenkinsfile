@@ -8,7 +8,8 @@ pipeline {
     }
     parameters {
         string(name: 'GCP_PROJECT_ID', defaultValue: 'astute-veld-344810', description: 'GCP Project ID',)
-        string(name: 'CLOUD_SQL_NAME', defaultValue: 'test-sql', description: 'Cloud SQL Instance name',)
+        string(name: 'CLOUD_SQL_NAME', defaultValue: 'sql-db-test', description: 'Cloud SQL Instance name',)
+        string(name: 'CLOUD_SQL_VERSION', defaultValue: 'MYSQL_8_0', description: 'Cloud SQL Instance name',)
         string(name: 'GCP_REGION', defaultValue: 'us-central1', description: 'GCP Region',)
         string(name: 'INSTANCE_TYPE', defaultValue: 'REGIONAL', description: 'Instance type or tier',)
         string(name: 'GCP_ZONE', defaultValue: 'us-central1-a', description: 'Zone selection if needed',)
@@ -51,12 +52,13 @@ pipeline {
                     sh 'terraform init'
                     sh '''terraform plan \
                     -var 'project_id=${GCP_PROJECT_ID}' \
-                    -var 'name=${CLOUD_SQL_NAME}' \
+                    -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \
                     -var 'region=${GCP_REGION}'\
                     -var 'tier=${INSTANCE_TYPE}' \
                     -var 'disk_size=10' \
-                    -var 'zone=${GCP_ZONE}' '''
+                    -var 'zone=${GCP_ZONE}' \
+                    -var 'database_version=${CLOUD_SQL_VERSION}' '''
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \
@@ -71,12 +73,13 @@ pipeline {
                     sh 'terraform --version'
                     sh '''terraform apply \
                     -var 'project_id=${GCP_PROJECT_ID}' \
-                    -var 'name=${CLOUD_SQL_NAME}' \
+                    -var 'name=sql-db-test' \
                     -var 'database_version=$(DATABASE_VERSION)' \
                     -var 'region=${GCP_REGION}'\
                     -var 'tier=${INSTANCE_TYPE}' \
                     -var 'disk_size=10' \
-                    -var 'zone=${GCP_ZONE}' '''
+                    -var 'zone=${GCP_ZONE}' \
+                    -var 'database_version=${CLOUD_SQL_VERSION}' '''
                     // -var 'activation_policy=$(GCP_ACTIVATION_POLICY)' \
                     // -var 'availability_type=$(GCP_AVAILABILITY_TYPE)' \
                     // -var 'disk_autoresize=$(DISK_AUTO_RESIZE)' \
